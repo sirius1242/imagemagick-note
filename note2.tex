@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+
+\begin{document}
+\title{Note of usage to some command in imagemagick}
+\author{}
+\maketitle
+\tableofcontents
+\section{Convert}
+\subsection{Cut}
+{\centering\fbox{convert \textit{source} -crop $w$x$h$ \textit{target}}\par}\vspace{5mm}
+
+This command was used to devide the source image into several subfigures with specified size, if the size of source was not the interger multiple of subfigures, and the size of subfigures in right and bottom will take the size in reality.\\
+
+{\centering\fbox{convert \textit{source} -crop $w$x$h$+$dx$+$dy$ \textit{target}}\par}\vspace{5mm}
+
+`w' was the width of target photo and the `h' was the height.\\
+`dx' was the offset in the x axis and `dy' was the offset in the y axis, the origin was the top left.
+
+\subsection{Make a color block file}
+{\centering\fbox{convert -size $w$x$h$ xc:$color$ \textit{target}}\par}\vspace{5mm}
+
+This command can also create a image with specified color and specified size.\\
+
+{\centering\fbox{convert -size $w$x$h$ xc:$color$ \textit{source} -geometry +$dx$+$dy$ -composite \textit{target}}\par}\vspace{5mm}
+
+`color' was the color of background, you can use the name of color like `cyan', `blue', `red', or the color code like `\#44f\mbox{}f88'.
+
+\subsection{Replace color in images}
+{\centering\fbox{convert \textit{source} -fuzz $percent\%$ -fill \textit{color1} -opaque \textit{color2} \textit{target}}\par}\vspace{5mm}
+
+`percent' was the threshold value, and color2 was the color which will be replaced and the color2 was the color which will replace color1.\\
+
+{\centering\fbox{convert -negate \textit{source} \textit{target}}\par}\vspace{5mm}
+
+This command was used to reverse the color in the image.\\
+
+If you want to reverse the color in only a part of image, you can use this:\\
+
+{\centering\fbox{convert -region $w$x$h$+$dx$+$dy$ -negate \textit{source} \textit{target}}\\ \vspace{5mm}
+or\\ \vspace{5mm}
+\fbox{convert -gravity $direction$ -region $w$x$h$+$dx$+$dy$ -negate \textit{source} \textit{target}}\par}\vspace{5mm}
+
+And if argument `direction' was chosen as center, the latter was located from where the area was in the center of source, you can use other direction like southeast and so on.
+
+Also, you can use `-region' or `-gravity' to make other processing on only a part.
+
+Some times, you don't know the code of color which you want to replace, and this command will help you:\vspace{5mm}
+
+{\centering\fbox{convert \textit{source} -crop $w$x$h$+$dx$+$dy$ txt:-}\par}\vspace{5mm}
+
+This command will output the color code of all points in the area you pick.
+
+\subsection{Merge}
+{\centering\fbox{convert $ \pm$ append \textit{source1} \textit{source2} $ \dots$ \textit{sourcen} \textit{target}}\par}\vspace{5mm}
+
+The `$\pm$' decided the direction of merge, when it was `\---', merge was in portrait, and when it was `+', merge was in landscape. You can put `-append' just behind the target, it's ok.
+
+You can also use the background to merge these figures.
+
+\subsection{Border add}
+{\centering\fbox{convert \textit{source} -bordercolor $color$ -border $width$ \textit{target}}\par}\vspace{5mm}
+
+This command was used to add the border to the image in specified color and specified width.\\
+
+You can also use this:\vspace{5mm}
+
+{\centering\fbox{convert -mattecolor $"color"$ -frame $w$x$h$ \textit{source} \textit{target}}\par}\vspace{5mm}
+
+This time `w' was width of vertical border and `h' was width of aclinic border.\\
+
+You can use this to make the border solid:\vspace{5mm}
+
+{\centering\fbox{convert -mattecolor $"color"$ -frame $w$x$h$+$down$+$up$ \textit{source} \textit{target}}\par}\vspace{5mm}
+
+This was a command to remove border:\\
+
+{\centering\fbox{convert \textit{source} -trim \textit{target}}\par}
+
+\subsection{Draw on the image}
+{\centering\fbox{convert \textit{source} -font $fontname$ -fill $color$ -pointsize $size$ -annotate +$dx$+$dy$ $@textfile$ \textit{target}}\par}\vspace{5mm}
+
+`fontname' was the absolute path to the font file, the `size was the size of words, `dx' and `dy' was offset, and `textfile' was the file including the words, or you can directly replace '@textfile' by the words.\vspace{5mm}
+
+{\centering\fbox{convert \textit{source} fill \textit{color1} -stroke \textit{color2} -strokewidth $width$ -draw $shape$ $x1,y1 x2,y2$ \textit{target}}\par}\vspace{5mm}
+
+`color1' was the padding color filling the shape, and `color2' was color of the line, width was linewidth, shape was the shape you want to draw on the image, such as rectangle, line, circle. x1,y1 was the origin coordinate and x2,y2 was target coordinate.\\
+
+If you want to add mark to the specified graph, you can also use composite:\vspace{5mm}
+
+{\centering\fbox{convert \textit{source} \textit{mark} -gravity $direction$ -geometry +dx+dy -composite \textit{target}}\par}\vspace{5mm}
+
+`mark' was the photo you want to add as a mark.
+
+\subsection{Zooming and rotating}
+{\centering\fbox{convert -resize $w$x$h$ \textit{source} \textit{target}}\par}\vspace{5mm}
+
+Because of zoom in equal ratio, so the target usually not in the size you specified, but at least one of width and height will match your request.
+
+You can also only specified only one of the size, but if you specified height, remember to add `x' before the height.\\
+
+If you do not need ratio, you can add `!':\vspace{5mm}
+
+{\centering\fbox{convert -resize $w$x$h$! \textit{source} \textit{target}}\par} \vspace{5mm}
+
+If you don`t know whether the size of photo match your request, you can use '\textless` and '\textgreater' to control it:\vspace{5mm}
+
+{\centering\fbox{convert -resize "$w$x$h\gtrless$" \textit{source} \textit{target}}\par}\vspace{5mm}
+
+If you use `$>$', it will zoom when the size of image larger than specified; Or if `$<$', it will zoom when size smaller.
+
+You can also use `!' to confirm the size behind `$\gtrless$'.\\
+
+Rotate the source image in a certain angle:\vspace{5mm}
+
+{\centering\fbox{convert -rotate $angle\%$ \textit{source} \textit{target}}\par}
+
+\subsection{Compress}
+{\centering\fbox{convert -strip -quality $percent$ \textit{source} \textit{target}}\par}\vspace{5mm}
+
+Quality was an attribute of image. the higher quality is, the bigger space it occupied. Usually, if you reduce the quality to 85, you can't find obvious difference, and the space occupied will reduce a lot.
+
+And the profile recorded some information of image, such as the information of camera, the unit data in photoshop and the table of colors, you can use `-strip' to remove this, or you can also use `-profile "*"'.
+
+\subsection{Make animation gif}
+{\centering\fbox{convert -delay $seconds$ \textit{source1} \textit{source2} $\dots$ \textit{sourcen} \textit{target}}\par}\vspace{5mm}
+
+`seconds' was the seconds delay between frames.
+
+You can use `-loop $times$' argument to limit the times target play, and the default setting was 0, which represent loop with no limit.
+
+And if you want to add a background to the gif:\vspace{5mm}
+
+{\centering\fbox{convert -loop $times$ $bgimage$ -page +$dx$+$dy$ \textit{source} \textit{target}}\par} \vspace{5mm}
+
+If you want to devide a gif into frames, you can use this:\vspace{5mm}
+
+{\centering\fbox{convert -coalesce \textit{source} \textit{target}}\par}\vspace{5mm}
+
+This will create several images and they will be named as target-0, target-1, $\dots$ , target-n, as the frames in the gif.
+
+\subsection{Verbose}
+
+You can use identify to get the verbose information of image, but convert can also realize this function.\vspace{5mm}
+
+{\centering\fbox{convert \textit{source} -verbose \textit{target}}\par}\vspace{5mm}
+
+This command was used to output identification information of source image when you convert it into another format.
+
+You can also convert the image into ASCII text file to get information in detail, it will point out the color of every point in the image.
+
+\end{document}
