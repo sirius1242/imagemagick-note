@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage{amssymb}
+\usepackage{amssymb,hyperref}
 
 \begin{document}
 \title{Note of usage to some command in imagemagick}
@@ -49,8 +49,17 @@ Some times, you don't know the code of color which you want to replace, and this
 
 {\centering\fbox{convert \textit{source} -crop $w$x$h$+$dx$+$dy$ txt:-}\par}\vspace{5mm}
 
-This command will output the color code of all points in the area you pick.
+This command will output the color code of all points in the area you pick.\vspace{5mm}
 
+\subsection{Adjust some attribute of the whole image}
+
+{\centering\fbox{convert \textit{source} -type Grayscale \textit{target}}\par}\vspace{5mm}
+
+This command will help you to convert a image to gray mode.\vspace{5mm}
+
+{\centering\fbox{convert \textit{source} -bright-contrast $db$x$dc$ \textit{target}}\par}\vspace{5mm}
+
+db is the increment of brightness, and the dc is the increment of contrast, this will adjust the brightness and contrast of the image.
 \subsection{Merge}
 {\centering\fbox{convert $ \pm$ append \textit{source1} \textit{source2} $ \dots$ \textit{sourcen} \textit{target}}\par}\vspace{5mm}
 
