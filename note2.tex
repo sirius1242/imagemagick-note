@@ -19,6 +19,8 @@ But it is not good at to convert bitmap to vector, if you want to do it, you sho
 {\centering\fbox{potrace \textit{source} -s -o \textit{target}}\par}\vspace{5mm}
 
 '-s' option is for svg format, there are some other options for other vector formats, but unfortunately, potrace can only convert graphics with gray scale.
+
+There is also an autotrace command, it can deal with colorful image, but autotrace algorithm is poor when compared with potrace.
 \subsection{Cut}
 {\centering\fbox{convert \textit{source} -crop $w$x$h$ \textit{target}}\par}\vspace{5mm}
 
