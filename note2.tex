@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage{amssymb,hyperref}
+\usepackage{amssymb,hyperref,listings}
 
 \begin{document}
 \title{Note of usage to some command in imagemagick}
@@ -21,6 +21,16 @@ But it is not good at to convert bitmap to vector, if you want to do it, you sho
 '-s' option is for svg format, there are some other options for other vector formats, but unfortunately, potrace can only convert graphics with gray scale.
 
 There is also an autotrace command, it can deal with colorful image, but autotrace algorithm is poor when compared with potrace.
+
+If you want to convert image to ico, use this:\vspace{5mm}
+\begin{lstlisting}[language=sh, frame=single]
+convert source  -bordercolor white -border 0 \ 
+	\( -clone 0 -resize 16x16 \) \ 
+	\( -clone 0 -resize 32x32 \) \ 
+	\( -clone 0 -resize 48x48 \) \ 
+	\( -clone 0 -resize 64x64 \) \ 
+	-delete 0 -alpha off -colors 256 destination.ico 
+\end{lstlisting} \vspace{5mm}
 \subsection{Cut}
 {\centering\fbox{convert \textit{source} -crop $w$x$h$ \textit{target}}\par}\vspace{5mm}
 
@@ -71,7 +81,7 @@ This command will output the color code of all points in the area you pick.\vspa
 
 This command will help you to convert a image to gray mode.\vspace{5mm}
 
-{\centering\fbox{convert \textit{source} -bright-contrast $db$x$dc$ \textit{target}}\par}\vspace{5mm}
+{\centering\fbox{convert \textit{source} -brightness-contrast $db$x$dc$ \textit{target}}\par}\vspace{5mm}
 
 db is the increment of brightness, and the dc is the increment of contrast, this will adjust the brightness and contrast of the image.
 \subsection{Merge}
