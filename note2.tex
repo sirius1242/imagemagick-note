@@ -98,13 +98,13 @@ This command was used to add the border to the image in specified color and spec
 
 You can also use this:\vspace{5mm}
 
-{\centering\fbox{convert -mattecolor $"color"$ -frame $w$x$h$ \textit{source} \textit{target}}\par}\vspace{5mm}
+{\centering\fbox{convert -mattecolor $``color$'' -frame $w$x$h$ \textit{source} \textit{target}}\par}\vspace{5mm}
 
 This time `w' was width of vertical border and `h' was width of aclinic border.\\
 
 You can use this to make the border solid:\vspace{5mm}
 
-{\centering\fbox{convert -mattecolor $"color"$ -frame $w$x$h$+$down$+$up$ \textit{source} \textit{target}}\par}\vspace{5mm}
+{\centering\fbox{convert -mattecolor $``color$'' -frame $w$x$h$+$down$+$up$ \textit{source} \textit{target}}\par}\vspace{5mm}
 
 This was a command to remove border:\\
 
@@ -138,7 +138,7 @@ If you do not need ratio, you can add `!':\vspace{5mm}
 
 If you don`t know whether the size of photo match your request, you can use '\textless` and '\textgreater' to control it:\vspace{5mm}
 
-{\centering\fbox{convert -resize "$w$x$h\gtrless$" \textit{source} \textit{target}}\par}\vspace{5mm}
+{\centering\fbox{convert -resize ``$w$x$h\gtrless$'' \textit{source} \textit{target}}\par}\vspace{5mm}
 
 If you use `$>$', it will zoom when the size of image larger than specified; Or if `$<$', it will zoom when size smaller.
 
@@ -148,12 +148,18 @@ Rotate the source image in a certain angle:\vspace{5mm}
 
 {\centering\fbox{convert -rotate $angle\%$ \textit{source} \textit{target}}\par}
 
+\subsection{change color mode}
+
+{\centering\fbox{convert $source$ -colorspace $colormode$ $destination$}\par}\vspace{5mm}
+
+For CMYK colormode, for $destination$, it seems only work for few formats, such as pdf and tif. some times colors are reversed, and you may need to reverse it by ``-negate'' option.
+
 \subsection{Compress}
 {\centering\fbox{convert -strip -quality $percent$ \textit{source} \textit{target}}\par}\vspace{5mm}
 
 Quality was an attribute of image. the higher quality is, the bigger space it occupied. Usually, if you reduce the quality to 85, you can't find obvious difference, and the space occupied will reduce a lot.
 
-And the profile recorded some information of image, such as the information of camera, the unit data in photoshop and the table of colors, you can use `-strip' to remove this, or you can also use `-profile "*"'.
+And the profile recorded some information of image, such as the information of camera, the unit data in photoshop and the table of colors, you can use `-strip' to remove this, or you can also use `-profile ``*''.
 
 \subsection{Make animation gif}
 {\centering\fbox{convert -delay $seconds$ \textit{source1} \textit{source2} $\dots$ \textit{sourcen} \textit{target}}\par}\vspace{5mm}
