@@ -218,3 +218,10 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.tex
+
+# temporary
+note2.md
+note2.xdv
+note3.pdf
+note3.tex
+note3.xdv

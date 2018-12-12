@@ -7,6 +7,7 @@
 \maketitle
 \tableofcontents
 \section{Convert}
+It seems `Convert' is the command most be used, it can convert the format of photos as basic function.
 \subsection{Change format}
 This is too simple, and you can just execute:\vspace{5mm}
 
@@ -18,7 +19,7 @@ But it is not good at to convert bitmap to vector, if you want to do it, you sho
 
 {\centering\fbox{potrace \textit{source} -s -o \textit{target}}\par}\vspace{5mm}
 
-'-s' option is for svg format, there are some other options for other vector formats, but unfortunately, potrace can only convert graphics with gray scale.
+`-s' option is for svg format, there are some other options for other vector formats, but unfortunately, potrace can only convert graphics with gray scale.
 
 There is also an autotrace command, it can deal with colorful image, but autotrace algorithm is poor when compared with potrace.
 
@@ -84,6 +85,11 @@ This command will help you to convert a image to gray mode.\vspace{5mm}
 {\centering\fbox{convert \textit{source} -brightness-contrast $db$x$dc$ \textit{target}}\par}\vspace{5mm}
 
 db is the increment of brightness, and the dc is the increment of contrast, this will adjust the brightness and contrast of the image.
+
+Add a background to transparent-background PNG:\vspace{5mm}
+
+{\centering\fbox{convert $source$ -background $color$ -flatten $destination$}\par}\vspace{5mm}
+
 \subsection{Merge}
 {\centering\fbox{convert $ \pm$ append \textit{source1} \textit{source2} $ \dots$ \textit{sourcen} \textit{target}}\par}\vspace{5mm}
 
@@ -188,4 +194,16 @@ This command was used to output identification information of source image when 
 
 You can also convert the image into ASCII text file to get information in detail, it will point out the color of every point in the image.
 
+\section{Identify}
+To out put the informations of certain photo, and use `-vvv' can get info in detail.
+\section{Display}
+As the name means, to display the photo, and it have many commands after you open it, such as:
+\begin{itemize}
+	\item </>: scale up/down
+	\item q: quit
+	\item +: enlarge part
+	\item $\cdots$
+\end{itemize}
+\section{Exiv2}
+Output the exif informations of photos. use `-pa' to print Exif, IPTC and XMP metadata.
 \end{document}
